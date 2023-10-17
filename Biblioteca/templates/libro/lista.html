@@ -1,0 +1,24 @@
+<Doctype html>
+    <html>
+    <head></head>
+    <h1>Libros de la biblioteca</h1>
+    {%for libro in libros_mostrar%}
+    <div>
+        <h2>Nombre: {{libro.nombre}}</h2>
+        <h2>Bibkioteca {{libro.biblioteca.nombre}}</h2><!--
+            libro es una instancia de la clase Libro, que tiene como atributo biblioteca(es una de sus FK)
+            con el atributo biblioteca puede acceder a los datos de la clase Biblioteca, como nombre
+        -->
+        <ul>
+            {% for autor in libro.autores.all %}
+            <li>{{autor.nombre}}</li>
+            {%endfor%}
+        </ul>
+        <p>Fecha Publicación {{libro.get_idioma_display}}</p>
+        <h3>Idioma: {{libro.get_idioma_display}}</h3>
+        <p>Descripcion{{libro.descripcion}}</p>
+    </div>
+    {%endfor%}
+
+    </body>
+    </html>
