@@ -1,0 +1,21 @@
+<Doctype html>
+    <html>
+    <head></head>
+    <h1>Datos de los clientes</h1>
+    {%for cliente in cliente_datos%}
+    <div>
+        <h1>Datos de contacto</h1>
+        <p>nombre: {{cliente.cliente.nombre}}</p>
+        <p>apellidos: {{cliente.cliente.apellidos}}</p><!--Si el dato es de una columna de la que hereda se hace variable.FKque hereda.atributo-->
+        <p>correo: {{cliente.cliente.email}}</p>
+        <p>Direccion: {{cliente.direccion}}</p>
+        <p>Telefono: {{cliente.telefono}}</p>
+        <p>dni: {{cliente.cliente.apellidos}}</p>
+        <h1>Datos personales</h1>
+        <p>gustos: {{cliente.gustos}}</p>
+        <p>peso: {{cliente.peso}}</p>
+        <p>altura: {{cliente.altura}}</p>
+        <p>puntos: {{cliente.cliente.puntos}}</p>
+        {%endfor%}
+    </body>
+    </html>

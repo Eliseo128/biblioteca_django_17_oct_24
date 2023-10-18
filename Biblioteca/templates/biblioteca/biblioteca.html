@@ -1,0 +1,13 @@
+<Doctype html>
+    <html>
+    <head></head>
+    <h1>Datos de las bibliotecas</h1>
+    {% for dato in datos %}
+    <div>
+        <h2>Nombre: {{dato.nombre}}</h2>
+        <h2>Dirección: {{dato.direccion}}</h2>
+        <h2>Fecha de creación: {{dato.fechaCreacion}}</h2>
+        <h2>Teléfono: {{dato.telefono}}</h2>
+    {%endfor%}
+    </body>
+    </html>
