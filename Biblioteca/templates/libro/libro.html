@@ -2,25 +2,21 @@
     <html>
     <head></head>
     <h1>Libros de la biblioteca</h1>
-    {%for libro in libros_mostrar%}
     <div>
-        <h2>Nombre: {{libro.nombre}}</h2>
-        <h2>Biblioteca {{libro.biblioteca.nombre}}</h2><!--
+        <h2>Nombre: {{libro_mostrar.nombre}}</h2>
+        <h2>Biblioteca {{libro_mostrar.biblioteca.nombre}}</h2><!--
             libro es una instancia de la clase Libro, que tiene como atributo biblioteca(es una de sus FK)
             con el atributo biblioteca puede acceder a los datos de la clase Biblioteca, como nombre
         -->
         <h2>Autores:</h2>
         <ul>
-            {% for autor in libro.autores.all %}
+            {% for autor in libro_mostrar.autores.all %}<!--el for solo para listas, cuando es solo un objeto no hace falta-->
             <li>{{autor.nombre}}</li>
             {%endfor%}
         </ul>
-        <p>Fecha Publicación {{libro.get_idioma_display}}</p>
-        <h3>Idioma: {{libro.get_idioma_display}}</h3>
-        <p>Descripcion{{libro.descripcion}}</p>
-        <a href="{% url 'devolver_libro' id_libro=libro.id %}">pulsa para ver</a>
+        <h3>Idioma: {{libro_mostrar.get_idioma_display}}</h3>
+        <p>Descripcion{{libro_mostrar.descripcion}}</p>
     </div>
-    {%endfor%}
 
     </body>
     </html>
