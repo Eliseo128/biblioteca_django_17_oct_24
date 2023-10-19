@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Libro
 from .models import Biblioteca
 from .models import DatosCliente #lo hago con esta clase porque al tener una FK de cliente puedo acceder a los datos de ambas
+from django.db.models import Q #sentencia or para un filtro de query
 
 # Create your views here.
 def index(request):
@@ -29,3 +30,15 @@ def datos_biblio(request):
 def clientes_registrados(request):
     datos_cl=DatosCliente.objects.select_related('cliente')
     return render(request,'cliente/cliente.html',{'cliente_datos':datos_cl})
+
+def dame_libro_fecha(request,anho_libro,mes_libro):
+    libros=Libro.objects.select_related('biblioteca').prefetch_related('autores')
+    libros=libros.filter(fecha_publicacion__year=anho_libro,fecha_publicacion__month=mes_libro)#con esta linea buscamos los libros
+    #con el año y mes especificados en la url libros/lista/2023/10/ por ejemplo
+    return render(request,'libro/lista.html',{'libros_mostrar':libros})
+
+def dame_libro_idioma(request,idioma):
+    libros=Libro.objects.select_related('biblioteca').prefetch_related('autores')
+    libros=libros.filter(Q(idioma=idioma)|Q(idioma='ES')).order_by("-fecha_publicacion")#con esta linea buscamos los libros que estan en español o el idioma que indicamos
+    #el order by por defecto es ascendente, para hacerlo descencente hay que poner - entre las comillas
+    return render(request,'libro/lista.html',{'libros_mostrar':libros})

@@ -15,7 +15,12 @@
             <li>{{autor.nombre}}</li>
             {%endfor%}
         </ul>
-        <p>Fecha Publicación {{libro.get_idioma_display}}</p>
+        <p>Fecha publicacion {{libro.fecha_publicacion}}</p>
+        <!--con la linea siguiente filtramos en libros/lista por libros con la misma fecha de publicacion
+        que el libro cuyo enlace (a href) se pincha-->
+        <a href="{% url 'dame_libro_fecha' libro.fecha_publicacion.year libro.fecha_publicacion.month %}">libros por año y mes </a><br>
+        <!--con la linea siguiente busca filtra lalista de libros por los idiomas del mismo pinchado o en español-->
+        <a href="{% url 'dame_libro_idioma' libro.idioma %}">este idioma y/o español</a>
         <h3>Idioma: {{libro.get_idioma_display}}</h3>
         <p>Descripcion{{libro.descripcion}}</p>
         <a href="{% url 'devolver_libro' id_libro=libro.id %}">pulsa para ver</a>

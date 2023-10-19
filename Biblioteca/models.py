@@ -21,7 +21,7 @@ class Libro(models.Model):
     nombre=models.CharField(max_length=200)
     idioma=models.CharField(max_length=2,choices=IDIOMAS,default='ES')
     descripcion=models.TextField()
-    fecha_publicacion=models.DateTimeField()
+    fecha_publicacion=models.DateTimeField(default=timezone.now)
     isbn=models.IntegerField()
     GENEROS=[('CF','Ciencia ficcion'),('P','Policíaca'),('H','Histórica'),('AV','Aventura'),('AT','Autoayuda')]
     genero=models.CharField(max_length=2,choices=GENEROS)
