@@ -24,8 +24,17 @@
         <h3>Idioma: {{libro.get_idioma_display}}</h3>
         <p>Descripcion{{libro.descripcion}}</p>
         <a href="{% url 'devolver_libro' id_libro=libro.id %}">pulsa para ver</a>
+        <a href="{% url 'dame_libros_biblioteca' id_biblioteca=libro.biblioteca.id texto_libro=libro.descripcion %}">pulsa</a>
+        <h3>ultimo cliente que se llevo el libro:
+            <a href="{% url 'ultimo_cliente_libro' libro.id %}">
+                Pulsa para ver el ultimo cliente
+            </a><br>
+            <a href="{% url 'libros_no_prestados' %}">
+                Pulsa para ver el libro sin prestamo
     </div>
     {%endfor%}
+
+    </h3>
 
     </body>
     </html>
