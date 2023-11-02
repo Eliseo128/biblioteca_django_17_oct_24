@@ -1,22 +1,18 @@
-<Doctype html>
-    <html>
-    <head></head>
+
     <h1>Libros de la biblioteca</h1>
     <div>
-        <h2>Nombre: {{libro_mostrar.nombre}}</h2>
-        <h2>Biblioteca {{libro_mostrar.biblioteca.nombre}}</h2><!--
+        <h2>Nombre: {{libro.nombre}}</h2>
+        <h2>Biblioteca {{libro.biblioteca.nombre}}</h2><!--
             libro es una instancia de la clase Libro, que tiene como atributo biblioteca(es una de sus FK)
             con el atributo biblioteca puede acceder a los datos de la clase Biblioteca, como nombre
         -->
         <h2>Autores:</h2>
         <ul>
-            {% for autor in libro_mostrar.autores.all %}<!--el for solo para listas, cuando es solo un objeto no hace falta-->
+            {% for autor in libro.autores.all %}<!--el for solo para listas, cuando es solo un objeto no hace falta-->
             <li>{{autor.nombre}}</li>
             {%endfor%}
         </ul>
-        <h3>Idioma: {{libro_mostrar.get_idioma_display}}</h3>
-        <p>Descripcion{{libro_mostrar.descripcion}}</p>
+        <h3>Idioma: {{libro.get_idioma_display}}</h3>
+        <p>Descripcion{{libro.descripcion}}</p>
     </div>
-
-    </body>
-    </html>
+{#Como las etiquetas html, head, main... ya están en lista.html que referencia a este, se puede quitar de aqui#}
