@@ -1,0 +1,20 @@
+{% extends "estructura/principal.html"%}
+
+{% block contenido %}
+<form action ="" method ="post">
+    {%csrf_token%}
+    {%load bootstrap5%}
+     <div class="mb-4">
+        {%bootrap_field formulario.nombre%}
+        </div>
+        <div class="mb-4">
+            {%bootrap_field formulario.descripcion%}
+            </div>
+
+    {%buttons%}
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    {%endbuttons%}
+    {{formulario.as_p }}
+    <button type="submit">Enviar</button>
+</form>
+{% endblock %}

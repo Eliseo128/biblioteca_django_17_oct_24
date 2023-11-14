@@ -5,7 +5,11 @@ from .models import Biblioteca
 from .models import DatosCliente #lo hago con esta clase porque al tener una FK de cliente puedo acceder a los datos de ambas
 from django.db.models import Q #sentencia or para un filtro de query
 from django.views.defaults import page_not_found
+from .forms import LibroForm
+from .models import *
+from django.contrib import *
 # Create your views here.
+
 def index(request):
     return render(request,'index.html')
 
@@ -60,3 +64,8 @@ def libros_no_prestados(request):
 
 def mi_error_404(request, exception=None):
     return render(request,'errores/404.html',None,None,404)
+
+def libro_create(request):
+    formulario=LibroForm()
+    return render(request,'libro/create2.html',{'formulario':formulario})
+

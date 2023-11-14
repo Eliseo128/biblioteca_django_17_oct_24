@@ -1,0 +1,13 @@
+{%extends principal.html%}
+{% block contenido %}
+<form action ="" method ="post">
+    {%csrf_token%}
+    {%load bootstrap5%}
+    {%bootstrap_form formulario%}
+    {%buttons%}
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    {%endbuttons%}
+    {{formulario.as_p }}
+    <button type="submit">Enviar</button>
+</form>
+{% endblock %}
