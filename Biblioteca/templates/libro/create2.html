@@ -3,18 +3,18 @@
 {% block contenido %}
 <form action ="" method ="post">
     {%csrf_token%}
-    {%load bootstrap5%}
-     <div class="mb-4">
-        {%bootrap_field formulario.nombre%}
+    {%load bootstrap5 %}
+    <div class="mb-4">
+        {%bootstrap_form formulario%}
+        <!--{% bootstrap_field formulario.nombre%}
         </div>
         <div class="mb-4">
-            {%bootrap_field formulario.descripcion%}
-            </div>
+            {%bootstrap_field formulario.descripcion%}
+            </div>-->
 
     {%buttons%}
     <button type="submit" class="btn btn-primary">Enviar</button>
     {%endbuttons%}
-    {{formulario.as_p }}
-    <button type="submit">Enviar</button>
+
 </form>
 {% endblock %}

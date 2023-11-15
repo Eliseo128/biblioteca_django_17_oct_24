@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Libro
 from .models import Cliente
 from .models import Biblioteca
@@ -8,6 +8,8 @@ from django.views.defaults import page_not_found
 from .forms import LibroForm
 from .models import *
 from django.contrib import *
+from django.forms import modelform_factory
+from .forms import *
 # Create your views here.
 
 def index(request):
@@ -69,3 +71,25 @@ def libro_create(request):
     formulario=LibroForm()
     return render(request,'libro/create2.html',{'formulario':formulario})
 
+def libro_create2(request):
+    datosFormulario=None
+    if request.method=="POST":
+        datosFormulario=request.POST
+    formulario = LibroModelForm(datosFormulario)
+
+    if (request.method =="POST"):
+        libro_creado = crear_libro_modelo(formulario)
+        if(libro_creado):
+            return redirect("lista_libros")
+    return render(request, 'libro/create2.html',{'formulario':formulario})
+    
+def crear_libro_modelo(formulario):
+    libro_creado=False
+    
+    if formulario.is_valid():
+        try:
+            formulario.save()
+            libro_creado=True
+        except Exception as error:
+            print(error)
+    return libro_creado

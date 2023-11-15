@@ -86,7 +86,7 @@ class LibroForm(forms.Form):
 class LibroModelForm(ModelForm):   
     class Meta:
         model = Libro
-        fields = ['nombre','descripcion','fecha_publicacion','idioma','biblioteca','autores']
+        fields = ['nombre','descripcion','idioma','biblioteca','autores','isbn']
         labels = {
             "nombre": ("Nombre del Libro"),
         }
@@ -94,54 +94,9 @@ class LibroModelForm(ModelForm):
             "nombre": ("200 caracteres como máximo"),
             "autores":("Mantén pulsada la tecla control para seleccionar varios elementos")
         }
-        widgets = {
-            "fecha_publicacion":forms.SelectDateWidget()
-        }
-        localized_fields = ["fecha_publicacion"]
+
     
     
-    def clean(self):
-
-        #Validamos con el modelo actual
-        super().clean()
-        
-        #Obtenemos los campos 
-        nombre = self.cleaned_data.get('nombre')
-        descripcion = self.cleaned_data.get('descripcion')
-        fecha_publicacion = self.cleaned_data.get('fecha_publicacion')
-        idioma = self.cleaned_data.get('idioma')
-        biblioteca = self.cleaned_data.get('biblioteca')
-        autores = self.cleaned_data.get('autores')
-
-        #Comprobamos que no exista un libro con ese nombre
-        libroNombre = Libro.objects.filter(nombre=nombre).first()
-        if(not (libroNombre is None
-                or (not self.instance is None and libroNombre.id == self.instance.id)
-                )
-        ):
-            self.add_error('nombre','Ya existe un libro con ese nombre')
-
-        #Comprobamos que el campo descripción no tenga menos de 10 caracteres        
-        if len(descripcion) < 10:
-            self.add_error('descripcion','Al menos debes indicar 10 caracteres')
-        
-        #Comprobamos que la fecha de publicación sea mayor que hoy
-        fechaHoy = date.today()
-        if fechaHoy < fecha_publicacion :
-            self.add_error('fecha_publicacion','La fecha de publicacion debe ser mayor a Hoy')
-        
-        #Comprobamos que el idioma no pueda ser en Francés si se ha seleccionado la Biblioteca de la Universidad de Sevilla
-        if idioma == "FR" and biblioteca.id == 3:
-            self.add_error('idioma','No puede usar la Biblioteca de la Universidad de Sevilla y el idioma Fránces')
-            self.add_error('biblioteca','No puede usar la Biblioteca de la Universidad de Sevilla y el idioma Fránces')
-
-        #Que al menos seleccione dos autores
-        if len(autores) < 2:
-            self.add_error('autores','Debe seleccionar al menos dos autores')
-        
-        #Siempre devolvemos el conjunto de datos.
-        return self.cleaned_data
-
 class BusquedaLibroForm(forms.Form):
     textoBusqueda = forms.CharField(required=True)
     
